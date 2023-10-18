@@ -4,6 +4,7 @@ import java.util.Stack;
 
 
 public class Model {
+	public String accu = "0";
 	public Stack<Double> stack;
 	
 	public Model() {

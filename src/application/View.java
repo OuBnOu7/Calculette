@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Stack;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,12 +20,12 @@ public class View extends Application {
 
     private Controller controller;
     
+	public static void demarrer(String[] args) {
+		launch(args);
+	}
+    
     public void setController(Controller controller) {
         this.controller = controller;
-    }
-    
-    public static void main(String[] args) {
-        launch(args);
     }
 
     @Override
@@ -82,6 +84,17 @@ public class View extends Application {
         return grid;
     }
 
-    private void handleButtonClick(String value) {
+    public void change(String x) {
+    	this.controller.change(x) ;
+    } 
+    public void change(Stack<Double> stack ) {
+    	this.controller.change(stack) ;
+    } 
+   
+    public void handleButtonClick(String value) {
+    }
+    
+    public void affiche() {
+    	resultFields[4].setText(this.controller.model.accu);
     }
 }
