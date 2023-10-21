@@ -4,11 +4,12 @@ import java.util.Stack;
 
 
 public class Model {
-	public String accu = "0";
+	public String accu;
 	public Stack<Double> stack;
 	
 	public Model() {
 		this.stack = new Stack<>();
+		this.accu = "1";
 	}
 	
 	public void push(double x){
@@ -43,6 +44,8 @@ public class Model {
 			double a = this.stack.pop();
 			double b = this.stack.pop();
 			this.stack.push(a+b);
+			this.accu = String.valueOf(a+b);
+
 		}
 		else{System.out.println("There is less than 2 elements in the stack !");}
 		
@@ -53,6 +56,7 @@ public class Model {
 			double a = this.stack.pop();
 			double b = this.stack.pop();
 			this.stack.push(a-b);
+			this.accu = String.valueOf(a-b);
 		}
 		else{System.out.println("There is less than 2 elements in the stack !");}
 		
@@ -63,6 +67,7 @@ public class Model {
 			double a = this.stack.pop();
 			double b = this.stack.pop();
 			this.stack.push(a*b);
+			this.accu = String.valueOf(a*b);
 		}
 		else{System.out.println("There is less than 2 elements in the stack !");}
 		
@@ -73,7 +78,7 @@ public class Model {
 			double a = this.stack.pop();
 			double b = this.stack.pop();
 			if(b==0) {System.out.println("Division Par 0 !"); }
-			else{this.stack.push(a/b);}
+			else{this.stack.push(a/b);this.accu = String.valueOf(a/b);}
 		}
 		else{System.out.println("There is less than 2 elements in the stack !");}
 	}

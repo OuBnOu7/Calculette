@@ -18,14 +18,14 @@ public class View extends Application {
     private double[] results = new double[5];
     private String operator = "";
 
-    private Controller controller;
+    public Controller controller;
     
 	public static void demarrer(String[] args) {
 		launch(args);
 	}
     
-    public void setController(Controller controller) {
-        this.controller = controller;
+    public void setController(Controller ctrl) {
+        this.controller = ctrl;
     }
 
     @Override
@@ -92,9 +92,36 @@ public class View extends Application {
     } 
    
     public void handleButtonClick(String value) {
+        switch (value) {
+        case "=":
+            break;
+
+        case "C":
+
+            break;
+        case "+":
+        	
+        	break;
+        case "-":
+        	
+        	break;
+        case "*":
+        	
+        	break;
+        case "/":
+        	
+        	break;
+        default:
+        	String t = this.controller.model.accu;
+        	System.out.println(t);
+        	System.out.println(value);;
+        	break;
+        }
     }
     
     public void affiche() {
-    	resultFields[4].setText(this.controller.model.accu);
+    	String value = this.controller.model.accu;
+    	System.out.println(value);
+        //resultFields[4].setText(value);
     }
 }
