@@ -1,4 +1,4 @@
-package application;
+package application.View;
 
 import java.util.Stack;
 import java.util.HashMap;

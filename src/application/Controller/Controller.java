@@ -1,6 +1,10 @@
-package application;
+package application.Controller;
 
 import java.util.Stack;
+
+import application.Model.Model;
+import application.View.View;
+
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.control.Button;
