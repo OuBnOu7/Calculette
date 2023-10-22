@@ -51,9 +51,15 @@ public class View extends Application {
 	    for (int i = 0; i < 5; i++) {
 	        resultFields[i] = new Label("");
 	        resultFields[i].setPrefSize(295, 40); // Définir la taille souhaitée
-	        resultFields[i].setStyle("-fx-background-color: #E0E0E0; -fx-background-radius: 9px; -fx-font-size: 18; -fx-font-weight: bold;");
+	        resultFields[i].setStyle("-fx-background-color: #E0E0E0; -fx-background-radius: 9px; -fx-font-size: 18; -fx-font-weight: 400; -fx-padding: 10px;");
 	        resultFields[i].setTextFill(Color.web("black"));
 	        resultFields[i].setBorder(border);
+	        if (i == 4) {
+	            // Pour la zone de texte la plus proche des boutons
+	            resultFields[i].setStyle(resultFields[i].getStyle() + "-fx-background-color: #d7e7fc;"); // Couleur bleu azur
+	        } else {
+	            resultFields[i].setStyle(resultFields[i].getStyle() + "-fx-background-color: #E0E0E0;"); // Autres zones en gris
+	        }
 	        resultsBox.getChildren().add(resultFields[i]);
 	    }
 	    // Ajoutez une marge de 30 pixels entre les zones de texte et les boutons
@@ -68,8 +74,10 @@ public class View extends Application {
         Controller controller = new Controller(this, new Model());
         controller.setupButtonListeners();
 	    
-	    Scene scene = new Scene(vbox, 400, 600, Color.BLACK); // Ajustez la hauteur pour qu'elle soit plus grande
-	    primaryStage.setScene(scene);
+	    //Scene scene = new Scene(vbox, 400, 650, scene.setUserAgentStylesheet(scene.getUserAgentStylesheet("-fx-background-color: #000000;"))); // Ajustez la hauteur pour qu'elle soit plus grande
+        Scene scene = new Scene(vbox, 400, 650);
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        primaryStage.setScene(scene);
 	    primaryStage.show();
 	}
 
@@ -81,21 +89,34 @@ public class View extends Application {
         grid.setAlignment(Pos.CENTER);
 
         String[][] buttonLabels = {
+        	{"AC", "", "C", "/"},
             {"7", "8", "9", "+"},
             {"4", "5", "6", "-"},
             {"1", "2", "3", "*"},
-            {"C", "0", "<>", "/"}
+            {",", "0", "<>", "+/-"}
         };
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 4; j++) {
+            	if (buttonLabels[i][j].equals("")) {
+                	j++;
+                }
                 Button button = new Button(buttonLabels[i][j]);
-                
-                button.setMinWidth(70); // Largeur minimale de 50 pixels
-                button.setMaxWidth(70); // Largeur maximale de 100 pixels
+                int colSpan = 1; // Défaut, un bouton de largeur normale
+                if (buttonLabels[i][j].equals("AC")) {
+                    colSpan = 2; // Le bouton "AC" s'étend sur 2 colonnes
+                    // Ajoutez 11 pixels à la largeur du bouton "AC"
+                    button.setMinWidth(70 * colSpan + 9);
+                    button.setMaxWidth(70 * colSpan + 9);
+                } else {
+                    // Utilisez la largeur standard pour les autres boutons
+                    button.setMinWidth(70 * colSpan);
+                    button.setMaxWidth(70 * colSpan);
+                }
                 button.setMinHeight(45); // Hauteur minimale de 50 pixels
                 button.setMaxHeight(45); // Hauteur maximale de 100 pixels
                 button.setStyle("-fx-font-size: 16px; -fx-alignment: CENTER;");
+                GridPane.setColumnSpan(button, colSpan); // Définir la largeur du bouton
                 grid.add(button, j, i);
 
                 buttonMap.put(buttonLabels[i][j], button);
@@ -105,12 +126,15 @@ public class View extends Application {
                     button.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 21px; -fx-alignment: CENTER;");
                 } else if (buttonLabels[i][j].equals("<>")) {
                     button.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 21px; -fx-alignment: CENTER;");
-                } else if (buttonLabels[i][j].matches("[+\\-*/]")) {
+                } else if (buttonLabels[i][j].matches("[+\\-*/,]")) {
+                    button.setStyle("-fx-background-color: gray; -fx-text-fill: white; -fx-font-size: 18px; -fx-alignment: CENTER;");
+                } else if (buttonLabels[i][j].equals("AC")) {
+                	button.setStyle("-fx-background-color: black; -fx-text-fill: white; -fx-font-size: 21px; -fx-alignment: CENTER;");
+                } else if (buttonLabels[i][j].equals("+/-")) {
                     button.setStyle("-fx-background-color: gray; -fx-text-fill: white; -fx-font-size: 18px; -fx-alignment: CENTER;");
                 }
             }
         }
-
         return grid;
     }
 
