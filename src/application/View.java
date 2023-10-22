@@ -1,32 +1,36 @@
 package application;
 
 import java.util.Stack;
+import java.util.HashMap;
+import java.util.Map;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class View extends Application {
-    private TextField[] resultFields = new TextField[5];
+    private Label[] resultFields = new Label[5];
     private String currentInput = "";
     private double[] results = new double[5];
     private String operator = "";
-
-    public Controller controller;
+    private Map<String, Button> buttonMap = new HashMap<>();
     
 	public static void demarrer(String[] args) {
 		launch(args);
 	}
-    
-    public void setController(Controller ctrl) {
-        this.controller = ctrl;
-    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -39,9 +43,12 @@ public class View extends Application {
         VBox resultsBox = new VBox();
         resultsBox.setSpacing(10);  // Add spacing between result areas
         resultsBox.setPadding(new Insets(10, 10, 10, 10));  // Add padding
+        resultsBox.setAlignment(Pos.CENTER);
+
+        Border border = new Border(new BorderStroke(Color.RED,BorderStrokeStyle.SOLID, null, new BorderWidths(2)));
         for (int i = 0; i < 5; i++) {
-            resultFields[i] = new TextField();
-            resultFields[i].setEditable(false);
+            resultFields[i] = new Label("");
+            resultFields[i].setBorder(border);
             resultsBox.getChildren().add(resultFields[i]);
         }
         vbox.getChildren().add(resultsBox);
@@ -67,61 +74,35 @@ public class View extends Application {
             {"1", "2", "3", "*"},
             {"C", "0", "=", "/"}
         };
-
+    
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 Button button = new Button(buttonLabels[i][j]);
                 button.setMinSize(50, 50);
                 grid.add(button, j, i);
 
-                final int row = i;
-                final int col = j;
-
-                button.setOnAction(e -> handleButtonClick(buttonLabels[row][col]));
+                buttonMap.put(buttonLabels[i][j], button);
             }
         }
 
         return grid;
     }
+    
+	public Map<String, Button> getButtonMap() {
+		return buttonMap;
+	}
+    
+    public Button getButton(String btn) {
+        return buttonMap.get(btn);
+    }
 
     public void change(String x) {
-    	this.controller.change(x) ;
+    	this.resultFields[4].setText(x);
     } 
     public void change(Stack<Double> stack ) {
-    	this.controller.change(stack) ;
+    	
     } 
    
-    public void handleButtonClick(String value) {
-        switch (value) {
-        case "=":
-            break;
-
-        case "C":
-
-            break;
-        case "+":
-        	
-        	break;
-        case "-":
-        	
-        	break;
-        case "*":
-        	
-        	break;
-        case "/":
-        	
-        	break;
-        default:
-        	String t = this.controller.model.accu;
-        	System.out.println(t);
-        	System.out.println(value);;
-        	break;
-        }
-    }
-    
     public void affiche() {
-    	String value = this.controller.model.accu;
-    	System.out.println(value);
-        //resultFields[4].setText(value);
     }
 }
