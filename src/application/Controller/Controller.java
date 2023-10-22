@@ -77,6 +77,10 @@ public class Controller {
                         	view.change("0");
                             break;
                         case "<>":
+                        	if(currentNumber.length() == 0) {
+                        		System.out.println("Vous Avez Rien Tapez !");
+                        		break;
+                        	}
                         	double result = Double.parseDouble(currentNumber.toString());
                         	currentNumber.setLength(0);
                         	model.accu = currentNumber.toString();
