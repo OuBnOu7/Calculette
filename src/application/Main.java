@@ -1,7 +1,5 @@
 package application;
 
-import application.Controller.Controller;
-import application.Model.Model;
 import application.View.View;
 
 public class Main{

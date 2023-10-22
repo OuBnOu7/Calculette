@@ -5,7 +5,6 @@ import java.util.Stack;
 import application.Model.Model;
 import application.View.View;
 
-import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.control.Button;
 
@@ -49,32 +48,32 @@ public class Controller {
                         case "9":
                         	currentNumber.append(buttonLabel);
                         	System.out.println(buttonLabel);
-                        	view.change(currentNumber.toString());
+                        	change(currentNumber.toString());
                             break;
                         case "+":
                         	model.add();
-                        	view.change(model.accu);
+                        	change(model.accu);
                         	change(model.getStack());
                         	break;
                         case "-":   
                         	model.substract();
-                        	view.change(model.accu);
+                        	change(model.accu);
                         	change(model.getStack());
                         	break;
                         case "/":  
                         	model.division();
-                        	view.change(model.accu);
+                        	change(model.accu);
                         	change(model.getStack());
                         	break;
                         case "*":  
                         	model.multiply();
-                        	view.change(model.accu);
+                        	change(model.accu);
                         	change(model.getStack());
                         	break;
                         case "C":
                         	currentNumber.setLength(0);
                         	model.accu = "0";
-                        	view.change("0");
+                        	change("0");
                             break;
                         case "<>":
                         	if(currentNumber.length() == 0) {
@@ -102,7 +101,7 @@ public class Controller {
         } 
 
     public void change(String x) {
-    	
+    	view.change(x);
     } 
 
     public void change(Stack<Double> stack ) {
