@@ -50,6 +50,11 @@ public class Controller {
                         	System.out.println(buttonLabel);
                         	change(currentNumber.toString());
                             break;
+                        case ",":
+                        	currentNumber.append(".");
+                        	System.out.println(".");
+                        	change(currentNumber.toString());
+                            break;
                         case "+":
                         	model.add();
                         	change(model.accu);
@@ -73,7 +78,7 @@ public class Controller {
                         case "C":
                         	currentNumber.setLength(0);
                         	model.accu = "0";
-                        	change("0");
+                        	change(model.accu);
                             break;
                         case "<>":
                         	if(currentNumber.length() == 0) {
@@ -88,6 +93,21 @@ public class Controller {
                         	change(model.getStack());
                             
                             break;
+                            
+                        case "+/-" :
+                        	model.opposite();
+                        	change(model.accu);
+                        	change(model.getStack());
+                        	break;
+                        	
+                        case "AC" :
+                        	currentNumber.setLength(0);
+                        	model.accu = "0";
+                        	change("0");
+                        	model.clear();
+                        	change(model.getStack());
+
+                        	break;
                         default:
                             break;
                     }

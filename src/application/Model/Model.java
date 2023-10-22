@@ -91,6 +91,14 @@ public class Model {
 		else{System.out.println("There is less than 2 elements in the stack !");}
 	}
 	
+	public void opposite(){ // TRansforme le dernier element dans le stack en opposé
+		if(this.stack.size()>=1) {
+			double a = this.stack.pop();
+			this.stack.push(-a);this.accu = String.valueOf(-a);
+		}
+		else{System.out.println("Stack Is Empty !");}
+	}
+	
 	public void show() { // Afficher tout les elements de la pile
 	    for (Double element : this.stack) {
 	        System.out.println(element);
