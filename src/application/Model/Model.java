@@ -12,6 +12,10 @@ public class Model {
 		this.accu = "1";
 	}
 	
+	public Stack<Double> getStack(){
+		return this.stack;
+	}
+	
 	public void push(double x){
 		this.stack.push(x);
 	}
@@ -90,6 +94,12 @@ public class Model {
 			System.out.println(a);
 			this.stack.push(a);
 		}
+	}
+	
+	public void printStack() {
+	    for (Double element : this.stack) {
+	        System.out.println(element);
+	    }
 	}
 	
 }

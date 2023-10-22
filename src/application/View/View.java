@@ -4,6 +4,9 @@ import java.util.Stack;
 import java.util.HashMap;
 import java.util.Map;
 
+import application.Controller.*;
+import application.Model.*;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.application.Application;
@@ -22,6 +25,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import java.util.Iterator;
 
 public class View extends Application {
     private Label[] resultFields = new Label[5];
@@ -63,6 +67,9 @@ public class View extends Application {
 	    GridPane buttonGrid = createButtonGrid();
 	    vbox.getChildren().add(buttonGrid);
 
+        Controller controller = new Controller(this, new Model());
+        controller.setupButtonListeners();
+	    
 	    Scene scene = new Scene(vbox, 400, 600, Color.BLACK); // Ajustez la hauteur pour qu'elle soit plus grande
 	    primaryStage.setScene(scene);
 	    primaryStage.show();
@@ -116,14 +123,19 @@ public class View extends Application {
 	}
     
     @SuppressWarnings("exports")
-	public Button getButton(String btn) {
-        return buttonMap.get(btn);
-    }
-
     public void change(String x) {
     	this.resultFields[4].setText(x);
     } 
-    public void change(Stack<Double> stack ) {
-    	
-    }
+
+    public void change(Stack<Double> stack) {
+            Iterator<Double> iterator = stack.iterator();
+            for (int i = 0; i < 4; i++) {
+                if (iterator.hasNext()) {
+                    resultFields[i].setText(iterator.next().toString());
+                	}
+                else {
+                	resultFields[i].setText("");
+                }
+                }
+            }
 }
