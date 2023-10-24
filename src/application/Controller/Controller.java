@@ -1,6 +1,7 @@
 package application.Controller;
 
 import java.util.Stack;
+import application.Exception.*;
 
 import application.Model.Model;
 import application.View.View;
@@ -10,6 +11,9 @@ import javafx.scene.control.Button;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class Controller {
 	
@@ -66,7 +70,17 @@ public class Controller {
                         	change(model.getStack());
                         	break;
                         case "/":  
-                        	model.division();
+                            try {
+                                model.division();
+                            } catch (DivisionByZeroException e) {
+                                System.out.println("Error: " + e.getMessage());
+                                Alert alert = new Alert(AlertType.ERROR);
+                                alert.setTitle("Division Error");
+                                alert.setHeaderText("On Peut Pas Diviser Par 0");
+                                alert.setContentText("Veuillez Refaire Saisir Des Valeurs Correctes.");
+
+                                alert.showAndWait();
+                            }
                         	change(model.accu);
                         	change(model.getStack());
                         	break;

@@ -1,6 +1,9 @@
 package application.Model;
 
 import java.util.Stack;
+import java.lang.Exception;
+import java.lang.RuntimeException;
+import application.Exception.*;
 
 
 public class Model {
@@ -81,11 +84,11 @@ public class Model {
 		
 	}
 	
-	public void division(){ // De meme pour soustraction des 2 dernier element de la pile
+	public void division() throws DivisionByZeroException { // De meme pour soustraction des 2 dernier element de la pile
 		if(this.stack.size()>=2) {
 			double a = this.stack.pop();
 			double b = this.stack.pop();
-			if(b==0) {System.out.println("Division Par 0 !"); } //Gerer le cas de division par 0
+			if(b==0) { throw new DivisionByZeroException("Division by zero is not allowed.") ; } //Gerer le cas de division par 0
 			else{this.stack.push(a/b);this.accu = String.valueOf(a/b);}
 		}
 		else{System.out.println("There is less than 2 elements in the stack !");}
