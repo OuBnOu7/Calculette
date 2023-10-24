@@ -49,7 +49,7 @@ public class Model {
 		this.stack.clear();
 	}
 	
-	public void add(){ // L'addition des 2 dernier element de la pile
+	public void add() throws LessThanTwoElement{ // L'addition des 2 dernier element de la pile
 		if(this.stack.size()>=2) {
 			double a = this.stack.pop();
 			double b = this.stack.pop();
@@ -58,48 +58,48 @@ public class Model {
 
 		}
 		// Le processus ne marche qu'avec deux elements dans la pile
-		else{System.out.println("There is less than 2 elements in the stack !");}
+		else{throw new LessThanTwoElement("La Pile Contient Moins Que Deux Elements.") ;}
 		
 	}
 	
-	public void substract(){ // De meme la soustraction des 2 dernier element de la pile
+	public void substract() throws LessThanTwoElement{ // De meme la soustraction des 2 dernier element de la pile
 		if(this.stack.size()>=2) {
 			double a = this.stack.pop();
 			double b = this.stack.pop();
 			this.stack.push(a-b);
 			this.accu = String.valueOf(a-b);
 		}
-		else{System.out.println("There is less than 2 elements in the stack !");}
+		else{throw new LessThanTwoElement("La Pile Contient Moins Que Deux Elements.") ;}
 		
 	}
 	
-	public void multiply(){ // De meme la multiplication des 2 dernier element de la pile
+	public void multiply() throws LessThanTwoElement{ // De meme la multiplication des 2 dernier element de la pile
 		if(this.stack.size()>=2) {
 			double a = this.stack.pop();
 			double b = this.stack.pop();
 			this.stack.push(a*b);
 			this.accu = String.valueOf(a*b);
 		}
-		else{System.out.println("There is less than 2 elements in the stack !");}
+		else{throw new LessThanTwoElement("La Pile Contient Moins Que Deux Elements.") ;}
 		
 	}
 	
-	public void division() throws DivisionByZeroException { // De meme pour soustraction des 2 dernier element de la pile
+	public void division() throws DivisionByZeroException,LessThanTwoElement { // De meme pour soustraction des 2 dernier element de la pile
 		if(this.stack.size()>=2) {
 			double a = this.stack.pop();
 			double b = this.stack.pop();
 			if(b==0) { throw new DivisionByZeroException("Division by zero is not allowed.") ; } //Gerer le cas de division par 0
 			else{this.stack.push(a/b);this.accu = String.valueOf(a/b);}
 		}
-		else{System.out.println("There is less than 2 elements in the stack !");}
+		else{throw new LessThanTwoElement("La Pile Contient Moins Que Deux Elements.") ;}
 	}
 	
-	public void opposite(){ // TRansforme le dernier element dans le stack en opposé
+	public void opposite() throws LessThanOneElement{ // TRansforme le dernier element dans le stack en opposé
 		if(this.stack.size()>=1) {
 			double a = this.stack.pop();
 			this.stack.push(-a);this.accu = String.valueOf(-a);
 		}
-		else{System.out.println("Stack Is Empty !");}
+		else{throw new LessThanOneElement("La Pile est vide.");}
 	}
 	
 	public void show() { // Afficher tout les elements de la pile

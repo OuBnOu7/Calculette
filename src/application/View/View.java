@@ -1,6 +1,9 @@
 package application.View;
 
 import java.util.Stack;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -144,6 +147,16 @@ public class View extends Application {
 		return buttonMap;
 	}
     
+	
+	public void alert(String title,String header,String text) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(text);
+
+        alert.showAndWait();
+	}
+	
     @SuppressWarnings("exports")
     public void change(String x) {
     	this.resultFields[4].setText(x);

@@ -12,8 +12,6 @@ import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 public class Controller {
 	
@@ -60,12 +58,24 @@ public class Controller {
                         	change(currentNumber.toString());
                             break;
                         case "+":
-                        	model.add();
+                        	try {
+                        		model.add();
+                        	}
+                        	 catch (LessThanTwoElement e) {
+                                 System.out.println("Less Than Two Elements Error: " + e.getMessage());
+                                 view.alert("Less Than Two Elements Error", "Il Y A Moins de 2 Éléments Dans la Pile", "Veuillez Ajouter Plus d'Éléments Avant de Continuer.");
+                             }
                         	change(model.accu);
                         	change(model.getStack());
                         	break;
-                        case "-":   
-                        	model.substract();
+                        case "-": 
+                        	try {
+                        		model.substract();
+                        	}
+                        	 catch (LessThanTwoElement e) {
+                                 System.out.println("Less Than Two Elements Error: " + e.getMessage());
+                                 view.alert("Less Than Two Elements Error", "Il Y A Moins de 2 Éléments Dans la Pile", "Veuillez Ajouter Plus d'Éléments Avant de Continuer.");
+                             }
                         	change(model.accu);
                         	change(model.getStack());
                         	break;
@@ -74,18 +84,23 @@ public class Controller {
                                 model.division();
                             } catch (DivisionByZeroException e) {
                                 System.out.println("Error: " + e.getMessage());
-                                Alert alert = new Alert(AlertType.ERROR);
-                                alert.setTitle("Division Error");
-                                alert.setHeaderText("On Peut Pas Diviser Par 0");
-                                alert.setContentText("Veuillez Refaire Saisir Des Valeurs Correctes.");
+                                view.alert("Division Error", "On Peut Pas Diviser Par 0","Veuillez Refaire Saisir Des Valeurs Correctes.");
 
-                                alert.showAndWait();
+                            } catch (LessThanTwoElement e) {
+                                System.out.println("Less Than Two Elements Error: " + e.getMessage());
+                                view.alert("Less Than Two Elements Error", "Il Y A Moins de 2 Éléments Dans la Pile", "Veuillez Ajouter Plus d'Éléments Avant de Continuer.");
                             }
                         	change(model.accu);
                         	change(model.getStack());
                         	break;
                         case "*":  
-                        	model.multiply();
+                        	try {
+                        		model.multiply();
+                        	}
+                        	 catch (LessThanTwoElement e) {
+                                 System.out.println("Less Than Two Elements Error: " + e.getMessage());
+                                 view.alert("Less Than Two Elements Error", "Il Y A Moins de 2 Éléments Dans la Pile", "Veuillez Ajouter Plus d'Éléments Avant de Continuer.");
+                             }
                         	change(model.accu);
                         	change(model.getStack());
                         	break;
@@ -109,8 +124,13 @@ public class Controller {
                             break;
                             
                         case "+/-" :
-                        	model.opposite();
-                        	change(model.accu);
+                        	try {
+                        		model.opposite();
+                        	}
+                        	 catch (LessThanOneElement e) {
+                                 System.out.println("Empty Stack Error: " + e.getMessage());
+                                 view.alert("Empty Stack Error", "Pile Vide", "Veuillez Ajouter Plus d'Éléments Avant de Continuer.");
+                             }                        	change(model.accu);
                         	change(model.getStack());
                         	break;
                         	
