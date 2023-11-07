@@ -13,7 +13,7 @@ public interface ModelInterface {
 	String getAccumulator();
 	void push(double x);
 	double pop();
-	void drop();
+	void drop() throws LessThanOneElement;
 	void swap() throws LessThanTwoElement;
 	void clear();
 	void add() throws LessThanTwoElement;

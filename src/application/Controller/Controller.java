@@ -69,7 +69,7 @@ public class Controller implements ControllerInterface {
                             break;
                         case "C":
                             currentNumber.setLength(0);
-                            model.clear();
+                            model.drop();
                             view.change("0");
                             updateView();
                             break;
@@ -118,13 +118,14 @@ public class Controller implements ControllerInterface {
                             break;
                     }
                 } catch (LessThanTwoElement e) {
-                    view.alert("Less Than Two Elements Error", "Il Y A Moins de 2 Éléments Dans la Pile",
-                            "Veuillez Ajouter Plus d'Éléments Avant de Continuer.");
+                    view.alert("Less Than Two Elements Error", "Il Y A Moins de 2 Éléments Dans la Pile","Veuillez Ajouter Plus d'Éléments Avant de Continuer.");
+                    updateView();
                 } catch (DivisionByZeroException e) {
                     view.alert("Division Error", "On Ne Peut Pas Diviser Par 0", "Veuillez Refaire Saisir Des Valeurs Correctes.");
+                    updateView();
                 } catch (LessThanOneElement e) {
-                	view.alert("Less Than One Element Error", "Il Y A Moins d'un Élément Dans la Pile", 
-                            "Veuillez Ajouter Plus d'Éléments Avant de Continuer.");
+                	view.alert("Less Than One Element Error", "Il Y A Moins d'un Élément Dans la Pile", "Veuillez Ajouter Plus d'Éléments Avant de Continuer.");
+                	updateView();
                 }
             }
         };

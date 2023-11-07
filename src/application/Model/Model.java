@@ -31,8 +31,11 @@ public class Model implements ModelInterface{
 		else {System.out.println("Stack is empty !"); return 0;}
 	}
 	
-	public void drop(){ // Fonction pour supprimer le dernier element de la pile
-		this.stack.pop();
+	public void drop() throws LessThanOneElement { // Fonction pour supprimer le dernier element de la pile
+		if(this.stack.size()>=1) {
+			this.stack.pop();
+		}
+		else{throw new LessThanOneElement("La Pile est vide.");}
 	}
 	
 	public void swap()  throws LessThanTwoElement{ // Fonction pour inverser les deux dernier elements de la pile
