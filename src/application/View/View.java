@@ -85,61 +85,61 @@ public class View extends Application implements ViewInterface {
 	}
 
     
-    public GridPane createButtonGrid() {
-        GridPane grid = new GridPane();
-        grid.setHgap(7);
-        grid.setVgap(11);
-        grid.setAlignment(Pos.CENTER);
+	public GridPane createButtonGrid() {
+	    GridPane grid = new GridPane();
+	    grid.setHgap(7);
+	    grid.setVgap(11);
+	    grid.setAlignment(Pos.CENTER);
 
-        String[][] buttonLabels = {
-        	{"AC", "", "C", "/"},
-            {"7", "8", "9", "+"},
-            {"4", "5", "6", "-"},
-            {"1", "2", "3", "*"},
-            {",", "0", "<>", "+/-"}
-        };
+	    String[][] buttonLabels = {
+	        {"AC", "INV", "C", "/"},
+	        {"7", "8", "9", "+"},
+	        {"4", "5", "6", "-"},
+	        {"1", "2", "3", "*"},
+	        {",", "0", "<>", "+/-"}
+	    };
 
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 4; j++) {
-            	if (buttonLabels[i][j].equals("")) {
-                	j++;
-                }
-                Button button = new Button(buttonLabels[i][j]);
-                int colSpan = 1; // Défaut, un bouton de largeur normale
-                if (buttonLabels[i][j].equals("AC")) {
-                    colSpan = 2; // Le bouton "AC" s'étend sur 2 colonnes
-                    // Ajoutez 11 pixels à la largeur du bouton "AC"
-                    button.setMinWidth(70 * colSpan + 9);
-                    button.setMaxWidth(70 * colSpan + 9);
-                } else {
-                    // Utilisez la largeur standard pour les autres boutons
-                    button.setMinWidth(70 * colSpan);
-                    button.setMaxWidth(70 * colSpan);
-                }
-                button.setMinHeight(45); // Hauteur minimale de 50 pixels
-                button.setMaxHeight(45); // Hauteur maximale de 100 pixels
-                button.setStyle("-fx-font-size: 16px; -fx-alignment: CENTER;");
-                GridPane.setColumnSpan(button, colSpan); // Définir la largeur du bouton
-                grid.add(button, j, i);
+	    for (int i = 0; i < 5; i++) {
+	        for (int j = 0; j < 4; j++) {
+	            if (buttonLabels[i][j].equals("")) {
+	                j++;
+	            }
+	            Button button = new Button(buttonLabels[i][j]);
+	            int colSpan = 1; // Default, a button with normal width
+	            if (buttonLabels[i][j].equals("AC") || buttonLabels[i][j].equals("INV")) {
+	                // Set the width of "AC" and "INV" buttons to match other buttons
+	                button.setMinWidth(70);
+	                button.setMaxWidth(70);
+	            } else {
+	                // Use standard width for other buttons
+	                button.setMinWidth(70 * colSpan);
+	                button.setMaxWidth(70 * colSpan);
+	            }
+	            button.setMinHeight(45); // Minimum height of 45 pixels
+	            button.setMaxHeight(45); // Maximum height of 45 pixels
+	            button.setStyle("-fx-font-size: 16px; -fx-alignment: CENTER;");
+	            GridPane.setColumnSpan(button, colSpan); // Set the button's width
+	            grid.add(button, j, i);
 
-                buttonMap.put(buttonLabels[i][j], button);
+	            buttonMap.put(buttonLabels[i][j], button);
 
-                // Modifier le style des boutons
-                if (buttonLabels[i][j].equals("C")) {
-                    button.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 21px; -fx-alignment: CENTER;");
-                } else if (buttonLabels[i][j].equals("<>")) {
-                    button.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 21px; -fx-alignment: CENTER;");
-                } else if (buttonLabels[i][j].matches("[+\\-*/,]")) {
-                    button.setStyle("-fx-background-color: gray; -fx-text-fill: white; -fx-font-size: 18px; -fx-alignment: CENTER;");
-                } else if (buttonLabels[i][j].equals("AC")) {
+	            // Modify the style of the buttons
+	            if (buttonLabels[i][j].equals("C")) {
+	                button.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 21px; -fx-alignment: CENTER;");
+	            } else if (buttonLabels[i][j].equals("<>")) {
+	                button.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 21px; -fx-alignment: CENTER;");
+	            } else if (buttonLabels[i][j].matches("[+\\-*/,]")) {
+	                button.setStyle("-fx-background-color: gray; -fx-text-fill: white; -fx-font-size: 18px; -fx-alignment: CENTER;");
+	            }else if (buttonLabels[i][j].equals("AC")) {
                 	button.setStyle("-fx-background-color: black; -fx-text-fill: white; -fx-font-size: 21px; -fx-alignment: CENTER;");
-                } else if (buttonLabels[i][j].equals("+/-")) {
-                    button.setStyle("-fx-background-color: gray; -fx-text-fill: white; -fx-font-size: 18px; -fx-alignment: CENTER;");
-                }
-            }
-        }
-        return grid;
-    }
+                }  else if (buttonLabels[i][j].equals("+/-")) {
+	                button.setStyle("-fx-background-color: gray; -fx-text-fill: white; -fx-font-size: 18px; -fx-alignment: CENTER;");
+	            }
+	        }
+	    }
+	    return grid;
+	}
+
 
     
 	@SuppressWarnings("exports")
@@ -174,6 +174,7 @@ public class View extends Application implements ViewInterface {
                 }
             }
     
+    //retourne le button a partir de son nom
     @Override
     public Button getButton(String btn) {
         return buttonMap.get(btn);
