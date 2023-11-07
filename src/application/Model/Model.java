@@ -1,12 +1,10 @@
 package application.Model;
 
 import java.util.Stack;
-import java.lang.Exception;
-import java.lang.RuntimeException;
 import application.Exception.*;
 
 
-public class Model {
+public class Model implements ModelInterface{
 	
 	public String accu; // une mémoire qui contient le résultat du calcul en cours
 	public Stack<Double> stack; // La pile déja implementé dans Java Util
@@ -18,6 +16,10 @@ public class Model {
 	
 	public Stack<Double> getStack(){ // Fonction qui retourne l'attribut pile du Modele
 		return this.stack; 
+	}
+	
+	public String getAccumulator() {
+		return this.accu;
 	}
 	
 	public void push(double x){ // Fonction pour empiler un nombre x
@@ -33,7 +35,7 @@ public class Model {
 		this.stack.pop();
 	}
 	
-	public void swap(){ // Fonction pour inverser les deux dernier elements de la pile
+	public void swap()  throws LessThanTwoElement{ // Fonction pour inverser les deux dernier elements de la pile
 		if(this.stack.size()>=2) {
 			double a = this.stack.pop();
 			double b = this.stack.pop();
@@ -42,7 +44,7 @@ public class Model {
 			// on depile les 2 derniers elements et on repile dans l'order inverse
 		}
 		// Le processus ne marche qu'avec 2 elements minimum dans la pile
-		else{System.out.println("There is less than 2 elements in the stack !");} 
+		else{throw new LessThanTwoElement("La Pile Contient Moins Que Deux Elements.") ;}
 	}
 	
 	public void clear(){ // Remettre la pile à 0 (Vide)

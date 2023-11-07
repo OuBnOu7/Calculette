@@ -74,14 +74,31 @@ public class Controller implements ControllerInterface {
                             updateView();
                             break;
                         case "<>":
+                        	//Checkez si rien est entré comme valeur
                             if (currentNumber.length() == 0) {
                                 System.out.println("Vous Avez Rien Tapez !");
                                 break;
                             }
-                            double result = Double.parseDouble(currentNumber.toString());
-                            currentNumber.setLength(0);
-                            model.push(result);
-                            updateView();
+                            
+                            //Checker si plusieeurs virgule
+                            String currentNumberStr = currentNumber.toString();
+                            if (currentNumberStr.contains(".")) {
+                                int dotCount = currentNumberStr.length() - currentNumberStr.replace(".", "").length();
+                                if (dotCount > 1) {
+                                    System.out.println("Vous Avez Tapez Plusieurs Virgules !");
+                                    break;
+                                }
+                            }
+                            //Parse to Double puis push dans la pile
+                            try {
+                                double result = Double.parseDouble(currentNumberStr);
+                                currentNumber.setLength(0);
+                                model.push(result);
+                                updateView();
+                            // Cas d'exception du parse en double    
+                            } catch (NumberFormatException e) {
+                                System.out.println("Format Invaldie !");
+                            }
                             break;
                         case "+/-":
                             model.opposite();
@@ -93,7 +110,7 @@ public class Controller implements ControllerInterface {
                             view.change("0");
                             updateView();
                             break;
-                        case "Inv":
+                        case "INV":
                             model.swap();
                             updateView();
                             break;
