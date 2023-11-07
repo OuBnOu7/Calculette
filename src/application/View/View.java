@@ -28,11 +28,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.util.Iterator;
 
-public class View extends Application {
+public class View extends Application implements ViewInterface {
     private Label[] resultFields = new Label[5];
     private Map<String, Button> buttonMap = new HashMap<>();
     
-	public static void affiche(String[] args) {
+	public void affiche(String[] args) {
 		launch(args);
 	}
 
@@ -85,7 +85,7 @@ public class View extends Application {
 	}
 
     
-    private GridPane createButtonGrid() {
+    public GridPane createButtonGrid() {
         GridPane grid = new GridPane();
         grid.setHgap(7);
         grid.setVgap(11);
@@ -173,4 +173,11 @@ public class View extends Application {
                 }
                 }
             }
+    
+    @Override
+    public Button getButton(String btn) {
+        return buttonMap.get(btn);
+    }
+
+    
 }
