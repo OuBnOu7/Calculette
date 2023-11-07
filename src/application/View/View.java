@@ -163,16 +163,17 @@ public class View extends Application implements ViewInterface {
     } 
 
     public void change(Stack<Double> stack) {
-            Iterator<Double> iterator = stack.iterator();
-            for (int i = 0; i < 4; i++) {
-                if (iterator.hasNext()) {
-                    resultFields[i].setText(iterator.next().toString());
-                	}
-                else {
-                	resultFields[i].setText("");
-                }
-                }
+        Object[] stackArray = stack.toArray(); // Convert the Stack to an array
+        int length = stackArray.length;
+
+        for (int i = 0; i < 4; i++) {
+            if (i < length) {
+                resultFields[i].setText(stackArray[length - 1 - i].toString());
+            } else {
+                resultFields[i].setText("");
             }
+        }
+    }
     
     //retourne le button a partir de son nom
     @Override
